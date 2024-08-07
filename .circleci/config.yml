@@ -7,26 +7,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Create sample images
+          name: Verify Setup
           command: |
-            mkdir -p artifacts/images
-            echo "Sample Image 1" > artifacts/images/image1.txt
-            echo "Sample Image 2" > artifacts/images/image2.txt
-      - run:
-          name: Generate HTML Page
-          command: |
-            echo "#!/bin/bash" > generate_html.sh
-            echo "IMAGES_DIR='artifacts/images'" >> generate_html.sh
-            echo "HTML_FILE='artifacts/index.html'" >> generate_html.sh
-            echo 'echo "<html><body>" > $HTML_FILE' >> generate_html.sh
-            echo 'echo "<h1>Build Artifacts</h1>" >> $HTML_FILE' >> generate_html.sh
-            echo 'for image in $IMAGES_DIR/*; do' >> generate_html.sh
-            echo '  filename=$(basename $image)' >> generate_html.sh
-            echo '  echo "<div><img src=\"$filename\" alt=\"$filename\" style=\"max-width:100%;height:auto;\"></div>" >> $HTML_FILE' >> generate_html.sh
-            echo 'done' >> generate_html.sh
-            echo 'echo "</body></html>" >> $HTML_FILE' >> generate_html.sh
-            chmod +x generate_html.sh
-            ./generate_html.sh
+            echo "CircleCI setup is working!"
+            mkdir -p artifacts
+            echo "This is a test file." > artifacts/test.txt
       - store_artifacts:
           path: artifacts
           destination: artifacts
